@@ -1,6 +1,6 @@
 import unittest
 
-from linked_lists.linked_list_cycle.linked_list_cycle import ListNode, LinkedListCycle
+from linked_lists.linked_list_cycle.linked_list_cycle import ListNode, Solution
 
 
 class LinkedListCycleTest(unittest.TestCase):
@@ -25,7 +25,7 @@ class LinkedListCycleTest(unittest.TestCase):
 
     def test_without_cycles(self):
         head, _ = ListNode.from_list([1,2,3,4])
-        sol = LinkedListCycle()
+        sol = Solution()
         self.assertFalse(sol.hasCycle(head))
 
 
@@ -33,7 +33,7 @@ class LinkedListCycleTest(unittest.TestCase):
         head, tail = ListNode.from_list([1,2,3,4])
         tail.next = head
 
-        sol = LinkedListCycle()
+        sol = Solution()
         self.assertTrue(sol.hasCycle(head))
 
 if __name__ == '__main__':
