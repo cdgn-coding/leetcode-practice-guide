@@ -36,6 +36,26 @@ class ListNode:
 
 
 class Solution:
+    """
+        Algorítmo de la liebre y la tortuga
+        Memoria O(1)
+        Tiempo O(n)
+    """
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        fast = slow = head
+
+        while fast and fast.next:
+            if fast.next == slow:
+                return True
+            slow = slow.next
+            fast = fast.next.next
+
+        return False
+
+    """
+        Algorítmo con un hash set
+        Memoria O(n)
+        Tiempo O(n)
     def hasCycle(self, head: Optional[ListNode]) -> bool:
         current = head
         visited = set()
@@ -45,4 +65,5 @@ class Solution:
             visited.add(current)
             current = current.next
         return False
+    """
 
