@@ -1,5 +1,6 @@
 from math import inf
-from typing import Optional
+from typing import Optional, List
+
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -9,16 +10,45 @@ class TreeNode:
 
 
 class Solution:
-    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
-        nodes = [root]
-        diff = float(inf)
-        while len(nodes) > 0:
-            current = nodes.pop()
-            if current.right:
-                nodes.append(current.right)
-                diff = min(abs(current.right.val - current.val), diff)
-            if current.left:
-                nodes.append(current.left)
-                diff = min(abs(current.left.val - current.val), diff)
+    def getMinimumDifferenceTraverse(self, root: Optional[TreeNode]) -> int:
+        stack = []
+        current = root
+        prev = None
+        diff = inf
+        while current or len(stack) > 0:
+            while current:
+                stack.append(current)
+                current = current.left
+
+            current = stack.pop()
+            if prev is not None:
+                diff = min(diff, abs(current.val - prev.val))
+            prev = current
+
+            current = current.right
         return diff
+
+
+    def getMinimumDifferenceTraverseThenIterate(self, root: Optional[TreeNode]) -> int:
+        def inorder(root):
+            stack = []
+            current = root
+            result = []
+            while current or len(stack) > 0:
+                while current:
+                    stack.append(current)
+                    current = current.left
+
+                current = stack.pop()
+                result.append(current.val)
+
+                current = current.right
+            return result
+
+        traversal = inorder(root)
+        diff = inf
+        for i in range(len(traversal) - 1):
+            diff = min(diff, abs(traversal[i] - traversal[i + 1]))
+        return diff
+
 
