@@ -10,17 +10,19 @@ class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         stack = []
         current = root
-        prev = None
+        traversal = []
         while current or stack:
             while current:
                 stack.append(current)
                 current = current.left
 
             current = stack.pop()
-            if prev is not None and current.val < prev.val:
-                return False
-            prev = current
+            traversal.append(current.val)
 
             current = current.right
+
+        for i in range(1, len(traversal)):
+            if not traversal[i - 1] < traversal[i]:
+                return False
 
         return True
